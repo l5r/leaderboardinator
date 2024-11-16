@@ -1,0 +1,28 @@
+/* This file is for your main application CSS */
+
+.leaderboard {
+  display: grid;
+  grid-template-columns: 20ch repeat(var(--max-score), 1fr);
+  gap: 1em;
+
+  & tr {
+    display: grid;
+    grid-template-columns: subgrid;
+
+    grid-column-start: 1;
+    grid-column-end: end;
+
+    & > th {
+      text-align: end;
+    }
+
+    & > .score-bar {      
+      grid-column-start: 2;
+      grid-column-end: span var(--score);
+
+      background: var(--pico-primary);
+      color: var(--pico-primary-inverse);
+      border-radius: 1em;
+    }
+  }
+}

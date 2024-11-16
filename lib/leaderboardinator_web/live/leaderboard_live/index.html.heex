@@ -1,0 +1,41 @@
+<.header>
+  Listing Leaderboards
+  <:actions>
+    <.link patch={~p"/leaderboards/new"}>
+      <.button>New Leaderboard</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="leaderboards"
+  rows={@streams.leaderboards}
+  row_click={fn {_id, leaderboard} -> JS.navigate(~p"/leaderboards/#{leaderboard}") end}
+>
+  <:col :let={{_id, leaderboard}} label="Title"><%= leaderboard.title %></:col>
+  <:action :let={{_id, leaderboard}}>
+    <div class="sr-only">
+      <.link navigate={~p"/leaderboards/#{leaderboard}"}>Show</.link>
+    </div>
+    <.link patch={~p"/leaderboards/#{leaderboard}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, leaderboard}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: leaderboard.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="leaderboard-modal" show on_cancel={JS.patch(~p"/leaderboards")}>
+  <.live_component
+    module={LeaderboardinatorWeb.LeaderboardLive.FormComponent}
+    id={@leaderboard.id || :new}
+    title={@page_title}
+    action={@live_action}
+    leaderboard={@leaderboard}
+    patch={~p"/leaderboards"}
+  />
+</.modal>

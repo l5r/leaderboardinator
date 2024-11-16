@@ -1,0 +1,14 @@
+<.header>
+  <h1><%= @leaderboard.title %></h1>
+</.header>
+
+<table class="">
+  <tbody class="leaderboard" style={"--max-score: #{@max_score}"}>
+    <tr
+      :for={contestant <- @leaderboard.contestants}
+     class="contestant">
+      <th scope="row"><%= contestant.name %></th>
+      <td class="score-bar" style={"--score: #{contestant.score}"}><%= contestant.score %></td>
+    </tr>
+  </tbody>
+</table>

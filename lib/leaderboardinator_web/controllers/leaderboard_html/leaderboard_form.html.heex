@@ -1,0 +1,29 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:title]} type="text" label="Title" />
+  <.inputs_for :let={contestant} field={f[:contestants]}>
+    <input type="hidden" name="leaderboard[contestants_sort][]" value={contestant.index} />
+    <.input type="text" field={contestant[:name]} />
+    <.input type="number" field={contestant[:score]} />
+    <button
+      type="button"
+      name="leaderboard[contestants_drop][]"
+      value={contestant.index}
+      phx-click={JS.dispatch("change")}
+    >
+      Delete
+    </button>
+  </.inputs_for>
+
+  <input type="hidden" name="leaderboard[contestants_drop][]" />
+
+  <button type="button" name="leaderboard[contestants_sort][]" value="new" phx-click={JS.dispatch("change")}>
+    Add contestant
+  </button>
+
+  <:actions>
+    <.button>Save Leaderboard</.button>
+  </:actions>
+</.simple_form>

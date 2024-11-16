@@ -1,0 +1,23 @@
+<.header>
+  Listing Leaderboards
+  <:actions>
+    <.link href={~p"/leaderboards/new"}>
+      <.button>New Leaderboard</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="leaderboards" rows={@leaderboards} row_click={&JS.navigate(~p"/leaderboards/#{&1}")}>
+  <:col :let={leaderboard} label="Title"><%= leaderboard.title %></:col>
+  <:action :let={leaderboard}>
+    <div class="sr-only">
+      <.link navigate={~p"/leaderboards/#{leaderboard}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/leaderboards/#{leaderboard}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={leaderboard}>
+    <.link href={~p"/leaderboards/#{leaderboard}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

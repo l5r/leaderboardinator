@@ -1,0 +1,15 @@
+<.header>
+  Leaderboard <%= @leaderboard.id %>
+  <:subtitle>This is a leaderboard record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/leaderboards/#{@leaderboard}/edit"}>
+      <.button>Edit leaderboard</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @leaderboard.title %></:item>
+</.list>
+
+<.back navigate={~p"/leaderboards"}>Back to leaderboards</.back>
